@@ -146,7 +146,7 @@ class decision_tree(classifier):
 
     def walk_tree(self, tree, x):
         # x[self.tree[x[12]]]
-        if type(tree) == type(0) or tree == None:
+        if isinstance(tree, int):
             return tree
 
         keys = list(tree.keys())
