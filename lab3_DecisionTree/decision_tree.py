@@ -137,12 +137,11 @@ class decision_tree(classifier):
         # self.pp.pprint("Tree")
         # self.pp.pprint(self.tree)
         # self.pp.pprint("====================================")
-        tmp = []
+        pred = []
 
         for x in X:
-            result = self.walk_tree(self.tree, x)
-            tmp.append(result)
-        return tmp
+            pred.append(self.walk_tree(self.tree, x))
+        return pred
 
 
     def walk_tree(self, tree, x):
@@ -150,10 +149,12 @@ class decision_tree(classifier):
         if type(tree) == type(0) or tree == None:
             return tree
 
-        result = None
+        keys = list(tree.keys())
+        feature_i = keys[0]
+        sub_tree = tree[feature_i]
+        result = self.walk_tree(sub_tree[x[feature_i]], x)
 
-        for key in tree:
-            # print(key)
-            # print("val:", x[key])
-            result = self.walk_tree(tree[key][x[key]], x)
+        # result = None
+        # for key, val in tree.items():
+        #     result = self.walk_tree(val[x[key]], x)
         return result
